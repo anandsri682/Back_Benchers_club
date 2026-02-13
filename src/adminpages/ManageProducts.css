@@ -1,0 +1,175 @@
+:root {
+  --yellow: #FFD60A;
+  --black: #0F0F0F;
+  --black-soft: #161616;
+  --white: #FFFFFF;
+}
+
+/* PAGE */
+.admin-page {
+  padding: 30px;
+  background: var(--black);
+  min-height: 100vh;
+  color: var(--white);
+}
+
+/* TITLE */
+.admin-title {
+  font-size: 28px;
+  color: var(--yellow);
+  margin-bottom: 20px;
+}
+
+/* TOP BAR */
+.admin-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.admin-top select {
+  background: var(--black-soft);
+  color: var(--white);
+  border: 1px solid var(--yellow);
+  padding: 8px 14px;
+  margin-right: 20px;
+  border-radius: 10px;
+}
+
+.add-btn {
+  background: var(--yellow);
+  color: var(--black);
+  border: none;
+  width:200px;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.add-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(255,214,10,0.6);
+}
+
+/* TABLE */
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--black-soft);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+thead {
+  background: rgba(255,214,10,0.15);
+}
+
+th, td {
+  padding: 14px;
+  text-align: center;
+  /* color:white; */
+}
+/* tr, td{
+  color:white; */
+
+
+tbody td tr {
+  transition: background 0.3s;
+  color:white;
+}
+
+tbody tr:hover {
+  background: rgba(255,214,10,0.08);
+}
+
+tbody tr.inactive {
+  opacity: 0.5;
+}
+
+td img {
+  width: 50px;
+  border-radius: 8px;
+}
+
+/* STATUS */
+.status-btn {
+  border: none;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.status-btn.on {
+  background: #28a745;
+  color: white;
+}
+
+.status-btn.off {
+  background: #dc3545;
+  color: white;
+}
+
+/* ACTIONS */
+.actions button {
+  margin: 0 4px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.actions .edit {
+  background: #0d6efd;
+  color: white;
+}
+
+.actions .delete {
+  background: #dc3545;
+  color: white;
+}
+
+.actions button:hover {
+  transform: scale(1.05);
+}
+
+/* NO DATA */
+.no-data {
+  padding: 30px;
+  color: #aaa;
+}
+.visibility-group {
+  display: flex;
+  gap: 8px;
+}
+
+.status-btn {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+}
+
+.status-btn.green {
+  background-color: #28a745;
+}
+
+.status-btn.red {
+  background-color: #dc3545;
+}
+
+.product-img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+}

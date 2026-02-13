@@ -1,0 +1,140 @@
+/* OVERLAY */
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 998;
+}
+
+.drawer-overlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* DRAWER */
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  left: -200px;
+  width: 200px;                 /* 🔥 reduced width */
+  height: 100vh;
+  background: #0F0F0F;
+  transition: left 0.35s ease;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-drawer.open {
+  left: 0;
+}
+
+/* HEADER */
+.drawer-header {
+  padding: 12px 0px ;
+  margin-top: 0px;
+  background: #0F0F0F;
+  color: #FFD60A;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255,214,10,0.25);
+}
+
+.drawer-header button {
+  background: none;
+  border: none;
+  margin-top: 60px;
+  padding-left:110px;
+    
+  color: #FFD60A;
+  font-size: 18px;
+  cursor: pointer;
+}
+.drawer-header button span{
+    padding: 5px;
+}
+
+/* LINKS */
+.drawer-links {
+  padding: 18px 14px;
+  display: flex;
+  flex-direction: column;
+  /* background: none; */
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.drawer-links a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #FFFFFF;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.drawer-links i {
+  width: 20px;
+  text-align: center;
+  color: #FFD60A;
+}
+
+.drawer-links a.active {
+  color: #FFD60A;
+}
+
+/* LOGIN BUTTON */
+.drawer-login {
+  margin-top: 20px;
+  border: 2px solid #FFD60A;
+  padding: 8px 14px;
+  border-radius: 22px;
+  background: none;
+  color: #FFD60A !important;
+}
+
+/* DESKTOP SAFETY */
+@media (min-width: 992px) {
+  .mobile-drawer,
+  .drawer-overlay {
+    display: none !important;
+  }
+}
+.drawer-user {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 55PX;
+  padding: 20px;
+  border-bottom: 1px solid rgba(255,214,10,0.3);
+}
+
+.drawer-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #FFD60A;
+  color: #000000;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drawer-user h4 {
+  margin: 0;
+  color: #FFD60A;
+  font-size: 16px;
+}
+
+.drawer-user p {
+  margin: 0;
+  font-size: 12px;
+  color: #aaa;
+}
+

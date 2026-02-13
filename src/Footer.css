@@ -1,0 +1,145 @@
+.bb-footer {
+  background: #020617;
+  color: #e5e7eb;
+  padding: 50px 20px 20px;
+}
+
+.bb-footer-container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 40px;
+}
+
+/* BRAND */
+.bb-footer-brand h2 {
+  color: #facc15;
+  margin-bottom: 10px;
+}
+
+.bb-footer-brand p {
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 280px;
+}
+
+/* SOCIAL */
+.bb-social {
+  display: flex;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.bb-social a {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #facc15;
+  transition: 0.3s;
+}
+
+.bb-social a:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 10px rgba(250, 204, 21, 0.6);
+}
+
+/* LINKS GRID */
+.bb-footer-links {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.bb-footer-links h4 {
+  color: #facc15;
+  margin-bottom: 14px;
+}
+
+.bb-footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.bb-footer-links li {
+  margin-bottom: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.bb-footer-links li:hover {
+  color: #facc15;
+  transform: translateX(6px);
+}
+
+/* GET IN TOUCH */
+.touch-text {
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.bb-input-box {
+  display: flex;
+  background: #0f172a;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.bb-input-box input {
+  flex: 1;
+  border: none;
+  padding: 12px 14px;
+  background: transparent;
+  color: white;
+  outline: none;
+}
+
+.bb-input-box button {
+  background: #facc15;
+  border: none;
+  padding: 0 16px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+.bb-input-box button:hover {
+  background: #fde047;
+}
+
+/* BOTTOM */
+.bb-footer-bottom {
+  margin-top: 40px;
+  border-top: 1px solid #1e293b;
+  padding-top: 14px;
+  text-align: center;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .bb-footer-container {
+    grid-template-columns: 2fr;
+    text-align: center;
+  }
+
+  .bb-footer-links {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  .bb-social {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .bb-footer-links {
+    grid-template-columns:1fr;
+  }
+}

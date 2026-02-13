@@ -1,0 +1,147 @@
+.contact-page {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  background: #f4f7fb;
+  padding: 40px 0;
+}
+
+/* MAIN BOX */
+.contact-wrapper {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+/* LEFT PANEL */
+.contact-info {
+  background: linear-gradient(135deg, #0062cc, #0096ff);
+  color: white;
+  padding: 40px;
+  height: 100%;
+  animation: slideLeft 0.8s ease;
+}
+
+.contact-info h2 {
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.contact-info p {
+  margin-bottom: 30px;
+}
+
+.contact-item {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+
+.contact-item i {
+  font-size: 20px;
+  margin-top: 5px;
+}
+
+.social-links span {
+  display: block;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.social-links i {
+  margin-right: 15px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.social-links i:hover {
+  transform: scale(1.2);
+}
+
+/* RIGHT FORM */
+.contact-form {
+  padding: 40px;
+  animation: slideRight 0.8s ease;
+}
+
+.contact-form h2 {
+  margin-bottom: 25px;
+  font-weight: 700;
+}
+
+.contact-form label {
+  font-weight: 500;
+  margin-top: 15px;
+}
+
+.contact-form .form-control {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-top: 5px;
+  transition: 0.3s;
+}
+
+.contact-form .form-control:focus {
+  outline: none;
+  border-color: #0062cc;
+  box-shadow: 0 0 0 3px rgba(0, 98, 204, 0.2);
+}
+
+/* BUTTON */
+.btn-submit {
+  margin-top: 25px;
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #0062cc, #0096ff);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.btn-submit:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 98, 204, 0.4);
+}
+
+/* ANIMATIONS */
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .contact-info {
+    text-align: center;
+  }
+
+  .contact-item {
+    justify-content: center;
+  }
+}

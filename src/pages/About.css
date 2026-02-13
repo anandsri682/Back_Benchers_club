@@ -1,0 +1,109 @@
+/* ================= BRAND COLORS ================= */
+:root {
+  --yellow: #FFD60A;
+  --black: #0F0F0F;
+  --black-soft: #161616;
+  --white: #FFFFFF;
+  --gray: #CFCFCF;
+}
+
+/* ================= ABOUT SECTION ================= */
+.about-us {
+  background: var(--black) !important; /* override bg-light */
+  color: var(--white);
+}
+
+/* ================= HEADINGS ================= */
+.about-us h2,
+.about-us h5 {
+  color: var(--yellow) !important; /* override text-primary */
+  font-weight: 700;
+}
+
+/* ================= PARAGRAPH ================= */
+.about-us p {
+  color: var(--gray) !important; /* override text-muted */
+  line-height: 1.7;
+}
+
+/* ================= LIST ITEMS ================= */
+.about-us .list-unstyled li {
+  margin-bottom: 12px;
+  margin-left: 40px;
+  display: flex;
+  align-items: center;
+  color: var(--white);
+  animation: fadeUp 0.6s ease both;
+}
+
+.about-us .list-unstyled li i {
+  color: var(--yellow) !important;
+  font-size: 1.1rem;
+}
+
+/* ================= IMAGE ================= */
+.about-us img {
+  border-radius: 18px;
+  box-shadow: 0 0 35px rgba(255, 214, 10, 0.35);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.about-us img:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 55px rgba(255, 214, 10, 0.55);
+}
+
+/* ================= BUTTON ================= */
+.about-us .btn-primary {
+  background: transparent !important;
+  border: 2px solid var(--yellow) !important;
+  color: var(--yellow) !important;
+  font-weight: 600;
+  border-radius: 30px;
+  padding: 10px 28px;
+  transition: all 0.3s ease;
+}
+
+.about-us .btn-primary:hover {
+  background: var(--yellow) !important;
+  color: var(--black) !important;
+  transform: translateY(-4px);
+  box-shadow: 0 0 20px rgba(255, 214, 10, 0.6);
+}
+
+/* ================= STATS SECTION ================= */
+.about-us .fs-1 {
+  color: var(--yellow) !important;
+  text-shadow: 0 0 15px rgba(255, 214, 10, 0.6);
+}
+
+.about-us h2.fw-bold {
+  color: var(--white);
+}
+
+.about-us .row.mt-5 p {
+  color: var(--gray) !important;
+}
+
+/* ================= ANIMATION ================= */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+  .about-us {
+    text-align: center;
+  }
+
+  .about-us img {
+    margin-top: 30px;
+  }
+}

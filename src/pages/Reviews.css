@@ -1,0 +1,154 @@
+/* ===== BRAND COLORS ===== */
+:root {
+  --yellow: #FFD60A;
+  --yellow-soft: #FFD60A;
+  --black: #0F0F0F;
+  --black-soft: #161616;
+  --white: #FFFFFF;
+  --grey-soft: #F7F7F7;
+}
+
+/* ===== SECTION ===== */
+.reviews-section {
+  padding: 60px 0;
+  background: var(--white);
+  overflow: hidden;
+}
+
+/* ===== TITLE ===== */
+.reviews-title {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--black);
+  margin-bottom: 40px;
+}
+
+.reviews-title::after {
+  content: "";
+  width: 90px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--yellow), var(--yellow-soft));
+  display: block;
+  margin: 14px auto 0;
+  border-radius: 6px;
+}
+
+/* ===== SLIDER ===== */
+.reviews-slider {
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  cursor: grab;
+  padding: 20px 0;
+}
+
+.reviews-slider::-webkit-scrollbar {
+  display: none;
+}
+
+/* PAUSE */
+.reviews-slider.paused .reviews-track {
+  animation-play-state: paused;
+}
+
+/* ===== TRACK ===== */
+.reviews-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: scrollLeft 28s linear infinite;
+  will-change: transform;
+}
+
+/* ===== CARD ===== */
+.review-card {
+  min-width: 260px;
+  max-width: 260px;
+  padding: 20px;
+  border-radius: 16px;
+  cursor: pointer;
+  position: relative;
+
+ background: #0F0F0F;
+
+  backdrop-filter: blur(10px);
+  color: var(--black);
+
+  box-shadow:
+    0 10px 22px rgba(0, 0, 0, 0.12),
+    inset 0 0 8px rgba(255, 214, 10, 0.12);
+
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* BORDER GLOW */
+.review-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1.5px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--yellow), var(--yellow-soft));
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* ===== TEXT ===== */
+.review-card p {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 12px;
+  color:  #FFD60A;
+
+}
+
+.review-card h6 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 2px;
+  color: #ffffff;
+}
+
+.review-card span {
+  font-size: 12px;
+  color: #ffffff;
+}
+
+/* ===== HOVER (DESKTOP ONLY) ===== */
+@media (hover: hover) {
+  .review-card:hover {
+    transform: translateY(-8px) scale(1.04);
+    box-shadow:
+      0 18px 36px rgba(0, 0, 0, 0.18),
+      0 0 20px rgba(255, 214, 10, 0.45);
+  }
+
+  .reviews-slider:hover .reviews-track {
+    animation-play-state: paused;
+  }
+}
+
+/* ===== AUTO SCROLL ===== */
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  .review-card {
+    min-width: 220px;
+    max-width: 220px;
+  }
+
+  .reviews-track {
+    animation-duration: 36s;
+  }
+}
