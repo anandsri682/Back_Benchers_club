@@ -7,7 +7,7 @@ function Hero() {
   const [showBottom, setShowBottom] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => setLoaded(true), 1200);
+   // setTimeout(() => setLoaded(true), 1200);
 
     const onScroll = () => {
       if (window.scrollY > 150) {
