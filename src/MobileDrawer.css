@@ -17,7 +17,7 @@
 /* DRAWER */
 .mobile-drawer {
   position: fixed;
-  top: 0;
+  top: 60px;
   left: -200px;
   width: 200px;                 /* 🔥 reduced width */
   height: 100vh;
@@ -94,7 +94,7 @@
   border: 2px solid #FFD60A;
   padding: 8px 14px;
   border-radius: 22px;
-  background: none;
+ 
   color: #FFD60A !important;
 }
 

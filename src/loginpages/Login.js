@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useAuth } from "./AuthContext";
 import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+
 import "./Auth.css";
 
 function Login() {
@@ -80,8 +82,9 @@ function Login() {
         <button type="submit">Login</button>
 
         <p className="switch">
-          New user? <a href="/signup">Create account</a>
-        </p>
+  New user? <NavLink to="/signup">Create account</NavLink>
+</p>
+
       </form>
     </div>
   );

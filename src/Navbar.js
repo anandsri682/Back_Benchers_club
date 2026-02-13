@@ -11,13 +11,11 @@ function Navbar() {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  /* =========================
-     LOAD CART COUNT
-  ========================= */
+  /* ================= LOAD CART COUNT ================= */
   const loadCartCount = () => {
     const cart = JSON.parse(localStorage.getItem("cart")) || {};
     const total = Object.values(cart).reduce(
-      (sum, item) => sum + item.qty,
+      (sum, item) => sum + (item.qty || 0),
       0
     );
     setCartCount(total);
@@ -26,7 +24,7 @@ function Navbar() {
   useEffect(() => {
     loadCartCount();
 
-    // listen cart changes
+    // Listen cart changes
     window.addEventListener("storage", loadCartCount);
 
     return () => {
@@ -66,7 +64,7 @@ function Navbar() {
               <NavLink className="nav-link" to="/contact">Contact</NavLink>
             </li>
 
-            {/* CART ICON DESKTOP */}
+            {/* CART */}
             <li className="nav-item">
               <NavLink className="nav-link cart-desktop" to="/cart">
                 <i className="fas fa-shopping-cart"></i>
@@ -98,7 +96,7 @@ function Navbar() {
           </ul>
 
           {/* MOBILE ICONS */}
-          <div className="d-flex align-items-center gap-3 d-lg-none">
+          <div className="mobile-icons d-flex align-items-center gap-3 d-lg-none">
             <NavLink to="/cart" className="cart-icon">
               <i className="fas fa-shopping-cart"></i>
               {cartCount > 0 && (
