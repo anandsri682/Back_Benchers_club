@@ -1,121 +1,170 @@
 import { useEffect, useState } from "react";
-import "./Cart.css"; // optional styling
+import { useNavigate } from "react-router-dom";
+import "./Cart.css";
 
 function Cart() {
-  const [cart, setCart] = useState({});
+  const navigate = useNavigate();
+  const [cartItems, setCartItems] = useState([]);
 
-  /* =========================
-     LOAD CART
-  ========================= */
+  /* =============================
+     LOAD CART FROM LOCAL STORAGE
+  ============================== */
   const loadCart = () => {
-    const storedCart = JSON.parse(localStorage.getItem("cart")) || {};
-    setCart(storedCart);
+    const storedCart =
+      JSON.parse(localStorage.getItem("cart")) || {};
+
+    // 🔥 Convert OBJECT → ARRAY
+    setCartItems(Object.values(storedCart));
   };
 
   useEffect(() => {
     loadCart();
 
-    // listen updates from Products page
+    // Listen for cart updates from other pages
     window.addEventListener("cartUpdated", loadCart);
-    return () => window.removeEventListener("cartUpdated", loadCart);
+
+    return () => {
+      window.removeEventListener("cartUpdated", loadCart);
+    };
   }, []);
 
-  /* =========================
-     SAVE CART
-  ========================= */
-  const saveCart = (cartData) => {
-    localStorage.setItem("cart", JSON.stringify(cartData));
-    setCart(cartData);
+  /* =============================
+     UPDATE CART (SAVE BACK)
+  ============================== */
+  const updateCartStorage = (updatedArray) => {
+    // Convert array back to object
+    const updatedObject = {};
+    updatedArray.forEach((item) => {
+      updatedObject[item.id] = item;
+    });
+
+    localStorage.setItem("cart", JSON.stringify(updatedObject));
+    setCartItems(updatedArray);
     window.dispatchEvent(new Event("cartUpdated"));
   };
 
-  /* =========================
-     CART ACTIONS
-  ========================= */
+  /* =============================
+     INCREASE QTY
+  ============================== */
   const increaseQty = (id) => {
-    const updated = { ...cart };
-    updated[id].qty += 1;
-    saveCart(updated);
+    const updated = cartItems.map((item) =>
+      item.id === id
+        ? { ...item, qty: item.qty + 1 }
+        : item
+    );
+
+    updateCartStorage(updated);
   };
 
+  /* =============================
+     DECREASE QTY
+  ============================== */
   const decreaseQty = (id) => {
-    const updated = { ...cart };
+    const updated = cartItems
+      .map((item) =>
+        item.id === id
+          ? { ...item, qty: item.qty - 1 }
+          : item
+      )
+      .filter((item) => item.qty > 0);
 
-    if (updated[id].qty === 1) {
-      delete updated[id];
-    } else {
-      updated[id].qty -= 1;
+    updateCartStorage(updated);
+  };
+
+  /* =============================
+     TOGGLE SELECT
+  ============================== */
+  const toggleSelect = (id) => {
+    const updated = cartItems.map((item) =>
+      item.id === id
+        ? { ...item, selected: !item.selected }
+        : item
+    );
+
+    updateCartStorage(updated);
+  };
+
+  /* =============================
+     TOTAL (ONLY SELECTED)
+  ============================== */
+  const totalPrice = cartItems
+    .filter((item) => item.selected)
+    .reduce(
+      (total, item) => total + item.price * item.qty,
+      0
+    );
+
+  /* =============================
+     CHECKOUT
+  ============================== */
+  const handleCheckout = () => {
+    const selectedItems = cartItems.filter(
+      (item) => item.selected
+    );
+
+    if (selectedItems.length === 0) {
+      alert("Please select at least one item");
+      return;
     }
 
-    saveCart(updated);
+    navigate("/checkout", { state: selectedItems });
   };
-
-  const removeItem = (id) => {
-    const updated = { ...cart };
-    delete updated[id];
-    saveCart(updated);
-  };
-
-  /* =========================
-     CALCULATIONS
-  ========================= */
-  const cartItems = Object.values(cart);
-
-  const grandTotal = cartItems.reduce(
-    (sum, item) => sum + item.price * item.qty,
-    0
-  );
-
-  /* =========================
-     EMPTY CART
-  ========================= */
-  if (cartItems.length === 0) {
-    return (
-      <div className="cart-page">
-        <h2>Your Cart is Empty 🛒</h2>
-      </div>
-    );
-  }
 
   return (
-    <div className="cart-page">
-      <h2>Your Cart</h2>
+    <section className="cart-page">
+      <h2 className="cart-title">Your Cart</h2>
 
-      <div className="cart-list">
-        {cartItems.map((item) => (
-          <div className="cart-item" key={item.id}>
-            <img src={item.image} alt={item.name} />
+      {cartItems.length === 0 ? (
+        <p className="empty-cart">Cart is empty</p>
+      ) : (
+        <>
+          <div className="cart-list">
+            {cartItems.map((item) => (
+              <div className="cart-card" key={item.id}>
+                <input
+                  type="checkbox"
+                  checked={item.selected || false}
+                  onChange={() => toggleSelect(item.id)}
+                  className="cart-checkbox"
+                />
 
-            <div className="cart-info">
-              <h4>{item.name}</h4>
-              <p>₹{item.price}</p>
+                <img src={item.image} alt={item.name} />
 
-              <div className="qty-box">
-                <button onClick={() => decreaseQty(item.id)}>-</button>
-                <span>{item.qty}</span>
-                <button onClick={() => increaseQty(item.id)}>+</button>
+                <div className="cart-info">
+                  <h4>{item.name}</h4>
+                  <p>₹{item.price}</p>
+
+                  <div className="qty-controller">
+                    <button
+                      onClick={() => decreaseQty(item.id)}
+                    >
+                      -
+                    </button>
+                    <span>{item.qty}</span>
+                    <button
+                      onClick={() => increaseQty(item.id)}
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
               </div>
-
-              <p className="item-total">
-                Total: ₹{item.price * item.qty}
-              </p>
-
-              <button
-                className="remove-btn"
-                onClick={() => removeItem(item.id)}
-              >
-                Remove
-              </button>
-            </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      <div className="cart-summary">
-        <h3>Grand Total: ₹{grandTotal}</h3>
-        <button className="checkout-btn">Proceed to Checkout</button>
-      </div>
-    </div>
+          <div className="cart-summary">
+            <h3>Total: ₹{totalPrice}</h3>
+
+            <button
+              className="checkout-btn"
+              onClick={handleCheckout}
+            >
+              Proceed to Checkout
+            </button>
+          </div>
+        </>
+      )}
+    </section>
   );
 }
 

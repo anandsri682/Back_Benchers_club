@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import "./EditProduct.css";
 
@@ -7,19 +7,36 @@ function EditProduct() {
   const location = useLocation();
   const { productId } = useParams();
 
-  // GET PRODUCT FROM NAVIGATION STATE
   const existingProduct = location.state?.product;
 
-  const [product, setProduct] = useState(
-    existingProduct || {
-      productName: "",
-      productType: "",
-      productPrice: "",
-      visibilityData: "visible",
-    }
-  );
+  const [product, setProduct] = useState({
+    productName: "",
+    productType: "",
+    productPrice: "",
+    productImageUrl: "",
+  });
 
-  /* HANDLE INPUT CHANGE */
+  /* =========================
+     LOAD FROM NAVIGATION STATE
+  ========================= */
+  useEffect(() => {
+    if (existingProduct) {
+      setProduct({
+        productName: existingProduct.productName,
+        productType: existingProduct.productType,
+        productPrice: existingProduct.productPrice,
+        productImageUrl: existingProduct.productImage,
+      });
+    } else {
+      // 🔥 If user refreshes page
+      alert("Please open product from Manage Products page.");
+      navigate("/admin/manage-products");
+    }
+  }, []);
+
+  /* =========================
+     HANDLE INPUT CHANGE
+  ========================= */
   const handleChange = (e) => {
     setProduct({
       ...product,
@@ -27,17 +44,26 @@ function EditProduct() {
     });
   };
 
-  /* UPDATE PRODUCT */
+  /* =========================
+     UPDATE PRODUCT
+  ========================= */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const res = await fetch(
-        `http://192.168.1.112:8080/backbenchersclube.com/api/products/update/${productId}`,
+        `http://192.168.1.120:8080/backbenchersclube.com/api/product/update/${productId}`,
         {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(product),
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            productName: product.productName,
+            productType: product.productType,
+            productPrice: product.productPrice,
+            productImageUrl: product.productImageUrl, // backend expects this
+          }),
         }
       );
 
@@ -48,7 +74,7 @@ function EditProduct() {
         alert("Update Failed ❌");
       }
     } catch (error) {
-      console.error("ERROR UPDATING PRODUCT 👉", error);
+      console.error("UPDATE ERROR 👉", error);
       alert("Server Error ❌");
     }
   };
@@ -61,7 +87,7 @@ function EditProduct() {
         <input
           type="text"
           name="productName"
-          value={product.productName || ""}
+          value={product.productName}
           onChange={handleChange}
           placeholder="Product Name"
           required
@@ -69,7 +95,7 @@ function EditProduct() {
 
         <select
           name="productType"
-          value={product.productType || ""}
+          value={product.productType}
           onChange={handleChange}
         >
           <option value="veg">Veg</option>
@@ -81,22 +107,22 @@ function EditProduct() {
         <input
           type="number"
           name="productPrice"
-          value={product.productPrice || ""}
+          value={product.productPrice}
           onChange={handleChange}
           placeholder="Price"
           required
         />
 
-        <select
-          name="visibilityData"
-          value={product.visibilityData || "visible"}
-          onChange={handleChange}
-        >
-          <option value="visible">Visible</option>
-          <option value="notVisible">Not Visible</option>
-        </select>
+        {/* Hidden field so it still sends */}
+        <input
+          type="hidden"
+          name="productImageUrl"
+          value={product.productImageUrl}
+        />
 
-        <button type="submit">Update Product</button>
+        <button type="submit" className="update-btn">
+          Update Product
+        </button>
       </form>
     </section>
   );

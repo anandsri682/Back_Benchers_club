@@ -16,9 +16,7 @@ function Products() {
 
   const saveCart = (cartData) => {
     localStorage.setItem("cart", JSON.stringify(cartData));
-    setCart(cartData);
-
-    // notify cart page instantly
+    setCart({ ...cartData }); // force re-render
     window.dispatchEvent(new Event("cartUpdated"));
   };
 
@@ -27,13 +25,24 @@ function Products() {
   ========================= */
   useEffect(() => {
     fetchProducts();
-    setCart(getCart()); // load cart from storage
+    setCart(getCart());
+
+    // listen cart updates from other pages
+    const handleCartUpdate = () => {
+      setCart(getCart());
+    };
+
+    window.addEventListener("cartUpdated", handleCartUpdate);
+
+    return () => {
+      window.removeEventListener("cartUpdated", handleCartUpdate);
+    };
   }, []);
 
   const fetchProducts = async () => {
     try {
       const response = await fetch(
-        "http://192.168.1.112:8080/backbenchersclube.com/api/products/loaded"
+        "http://192.168.1.120:8080/backbenchersclube.com/api/products/loaded"
       );
 
       if (!response.ok) throw new Error("Failed to fetch products");
@@ -57,7 +66,6 @@ function Products() {
     if (currentCart[product.id]) {
       currentCart[product.id].qty += 1;
     } else {
-      // store FULL product snapshot
       currentCart[product.id] = {
         id: product.id,
         name: product.productName,
@@ -65,6 +73,7 @@ function Products() {
         price: product.productPrice,
         image: product.productImage,
         qty: 1,
+        selected: true, // default selected
       };
     }
 
@@ -73,12 +82,17 @@ function Products() {
 
   const increaseQty = (productId) => {
     const currentCart = getCart();
+
+    if (!currentCart[productId]) return;
+
     currentCart[productId].qty += 1;
     saveCart(currentCart);
   };
 
   const decreaseQty = (productId) => {
     const currentCart = getCart();
+
+    if (!currentCart[productId]) return;
 
     if (currentCart[productId].qty === 1) {
       delete currentCart[productId];
@@ -92,8 +106,11 @@ function Products() {
   /* =========================
      UI STATES
   ========================= */
-  if (loading) return <p className="status-text">Loading products...</p>;
-  if (error) return <p className="status-text error">{error}</p>;
+  if (loading)
+    return <p className="status-text">Loading products...</p>;
+
+  if (error)
+    return <p className="status-text error">{error}</p>;
 
   return (
     <div className="products-page">
@@ -113,13 +130,18 @@ function Products() {
               }`}
               key={product.id}
             >
-              <img src={product.productImage} alt={product.productName} />
+              <img
+                src={product.productImage}
+                alt={product.productName}
+              />
 
               <h4>{product.productName}</h4>
               <p className="product-type">{product.productType}</p>
-              <p className="product-price">₹{product.productPrice}</p>
+              <p className="product-price">
+                ₹{product.productPrice}
+              </p>
 
-              {isVisible && (
+              {isVisible ? (
                 !cartItem ? (
                   <button
                     className="add-cart-btn"
@@ -129,11 +151,27 @@ function Products() {
                   </button>
                 ) : (
                   <div className="qty-controller">
-                    <button onClick={() => decreaseQty(product.id)}>-</button>
+                    <button
+                      onClick={() =>
+                        decreaseQty(product.id)
+                      }
+                    >
+                      -
+                    </button>
                     <span>{cartItem.qty}</span>
-                    <button onClick={() => increaseQty(product.id)}>+</button>
+                    <button
+                      onClick={() =>
+                        increaseQty(product.id)
+                      }
+                    >
+                      +
+                    </button>
                   </div>
                 )
+              ) : (
+                <div className="not-available-text">
+                  Not Available Right Now
+                </div>
               )}
             </div>
           );

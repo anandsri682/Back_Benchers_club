@@ -17,7 +17,7 @@ function AdminProducts() {
   const fetchProducts = async () => {
     try {
       const response = await fetch(
-        "http://192.168.1.112:8080/backbenchersclube.com/api/products/loaded"
+        "http://192.168.1.120:8080/backbenchersclube.com/api/products/loaded"
       );
 
       if (!response.ok) {
