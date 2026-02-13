@@ -3,7 +3,7 @@ import "./Hero.css";
 import foodImg from "./hero-four_img1.png"; // <-- put your image here
 
 function Hero() {
-  const [loaded, setLoaded] = useState(false);
+ 
   const [showBottom, setShowBottom] = useState(false);
 
   useEffect(() => {
