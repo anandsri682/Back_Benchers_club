@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/Back_Benchers_club/static/css/main.a8d7286c.css",
-    "main.js": "/Back_Benchers_club/static/js/main.88d82696.js",
+    "main.js": "/Back_Benchers_club/static/js/main.0cbddd58.js",
     "static/js/453.b9256582.chunk.js": "/Back_Benchers_club/static/js/453.b9256582.chunk.js",
     "static/media/hero-four_img1.png": "/Back_Benchers_club/static/media/hero-four_img1.fc52b237b359bfe27d49.png",
     "index.html": "/Back_Benchers_club/index.html",
     "main.a8d7286c.css.map": "/Back_Benchers_club/static/css/main.a8d7286c.css.map",
-    "main.88d82696.js.map": "/Back_Benchers_club/static/js/main.88d82696.js.map",
+    "main.0cbddd58.js.map": "/Back_Benchers_club/static/js/main.0cbddd58.js.map",
     "453.b9256582.chunk.js.map": "/Back_Benchers_club/static/js/453.b9256582.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a8d7286c.css",
-    "static/js/main.88d82696.js"
+    "static/js/main.0cbddd58.js"
   ]
 }
