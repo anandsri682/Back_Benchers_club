@@ -26,7 +26,7 @@ function Signup() {
     console.log(data.userName);
     try {
       // 🔥 API CALL
-      const res = await fetch("http://192.168.1.120:8080/backbenchersclube.com/api/user/signup", {
+      const res = await fetch("http://192.168.1.112:8080/backbenchersclube.com/api/user/signup", {
         method: "POST",
         credentials: "include",
         headers: {

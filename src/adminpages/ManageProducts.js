@@ -15,7 +15,7 @@ function ManageProducts() {
   const fetchProducts = useCallback(async () => {
     try {
       const response = await fetch(
-        "http://192.168.1.120:8080/backbenchersclube.com/api/products/loaded"
+        "http://192.168.1.112:8080/backbenchersclube.com/api/products/loaded"
       );
 
       if (!response.ok) throw new Error("Failed to fetch products");
@@ -83,10 +83,16 @@ function ManageProducts() {
     if (!window.confirm("Delete this product?")) return;
 
     try {
-      await fetch(
-        `http://192.168.1.120:8080/backbenchersclube.com/api/product/delete/${productId}`,
+      const res=await fetch(
+        `http://192.168.1.112:8080/backbenchersclube.com/api/product/delete/${productId}`,
         { method: "DELETE" }
       );
+       if (res.ok) {
+        alert("Product deleted Successfully ✅");
+        fetchProducts();
+      } else {
+        alert("Product Deletion Failed ❌");
+      }
 
       fetchProducts();
     } catch (error) {
@@ -193,7 +199,7 @@ function ManageProducts() {
                    <button
   className="edit"
   onClick={() =>
-    navigate(`/admin/update-product/${p.id}`, {
+    navigate(`/admin/update/product/${p.id}`, {
       state: { product: p },
     })
   }

@@ -36,8 +36,8 @@ function Hero() {
 
         {/* RIGHT IMAGE */}
         <div className="hero-image">
-          <img src={foodImg} alt="Delicious Food" />
-        </div>
+  <img src={foodImg} alt="Delicious Food" className="rotate-img" />
+</div>
 
       </div>
 

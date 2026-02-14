@@ -25,14 +25,13 @@ function EditProduct() {
         productName: existingProduct.productName,
         productType: existingProduct.productType,
         productPrice: existingProduct.productPrice,
-        productImageUrl: existingProduct.productImage,
+        productImageUrl: existingProduct.productImage, // mapping here
       });
     } else {
-      // 🔥 If user refreshes page
       alert("Please open product from Manage Products page.");
       navigate("/admin/manage-products");
     }
-  }, []);
+  }, [existingProduct, navigate]);
 
   /* =========================
      HANDLE INPUT CHANGE
@@ -52,9 +51,9 @@ function EditProduct() {
 
     try {
       const res = await fetch(
-        `http://192.168.1.120:8080/backbenchersclube.com/api/product/update/${productId}`,
+        `http://192.168.1.112:8080/backbenchersclube.com/api/product/update/${productId}`,
         {
-          method: "PUT",
+          method: "POST", // Swagger shows PUT
           headers: {
             "Content-Type": "application/json",
           },
@@ -62,7 +61,7 @@ function EditProduct() {
             productName: product.productName,
             productType: product.productType,
             productPrice: product.productPrice,
-            productImageUrl: product.productImageUrl, // backend expects this
+            productImageUrl: product.productImageUrl,
           }),
         }
       );
@@ -113,7 +112,7 @@ function EditProduct() {
           required
         />
 
-        {/* Hidden field so it still sends */}
+        {/* Hidden image field (still sends to backend) */}
         <input
           type="hidden"
           name="productImageUrl"

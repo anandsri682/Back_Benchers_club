@@ -4,7 +4,15 @@ import "./Cart.css";
 
 function Cart() {
   const navigate = useNavigate();
+ 
   const [cartItems, setCartItems] = useState([]);
+ const [coupon, setCoupon] = useState("");
+ const [discount, setDiscount] = useState(0);
+ const [isCouponApplied, setIsCouponApplied] = useState(false);
+ const [showPopup, setShowPopup] = useState(false);
+const [popupMessage, setPopupMessage] = useState("");
+
+
 
   /* =============================
      LOAD CART FROM LOCAL STORAGE
@@ -70,8 +78,30 @@ function Cart() {
 
     updateCartStorage(updated);
   };
+const applyCoupon = () => {
+    if (coupon.toUpperCase() === "ANAND") {
+      setPopupMessage("Coupon Applied Successfully 🎉");
+    setShowPopup(true);
+      setIsCouponApplied(true);
+      
 
-  /* =============================
+    } else {
+      setPopupMessage("Invalid Coupon ❌");
+      setCoupon("");
+      setShowPopup(true);
+      setDiscount(0);
+    }
+  };
+  const removeCoupon = () => {
+  setIsCouponApplied(false);
+  setCoupon("");
+  setDiscount(0);
+};
+
+
+
+// document.getElementById("coupon_btn").addEventListener("click", applyCoupon);
+ /* =============================
      TOGGLE SELECT
   ============================== */
   const toggleSelect = (id) => {
@@ -93,7 +123,15 @@ function Cart() {
       (total, item) => total + item.price * item.qty,
       0
     );
+    useEffect(() => {
+  if (coupon.toUpperCase() === "ANAND") {
+    setDiscount(totalPrice * 0.10); // 10%
+  } else {
+    setDiscount(0);
+  }
+}, [totalPrice, coupon]);
 
+const finalPrice = totalPrice - discount;
   /* =============================
      CHECKOUT
   ============================== */
@@ -111,7 +149,17 @@ function Cart() {
   };
 
   return (
+  
+
     <section className="cart-page">
+        {showPopup && (
+  <div className="popup-overlay">
+    <div className="popup-box">
+      <p>{popupMessage}</p>
+      <button onClick={() => setShowPopup(false)}>OK</button>
+    </div>
+  </div>
+)}
       <h2 className="cart-title">Your Cart</h2>
 
       {cartItems.length === 0 ? (
@@ -132,7 +180,7 @@ function Cart() {
 
                 <div className="cart-info">
                   <h4>{item.name}</h4>
-                  <p>₹{item.price}</p>
+                  <p>₹{item.price} /-</p>
 
                   <div className="qty-controller">
                     <button
@@ -151,9 +199,27 @@ function Cart() {
               </div>
             ))}
           </div>
+            <div className="coupan-code">
+              <input
+        type="text"
+        placeholder="Enter Coupon"
+        value={coupon}
+        readOnly={isCouponApplied}
+        onChange={(e) => setCoupon(e.target.value)}
+      />
 
+     {!isCouponApplied ? (
+  <button onClick={applyCoupon} >Apply</button>
+) : (
+  <button onClick={removeCoupon} style={{background:"red"}}>Remove</button>
+)}
+
+
+            </div>
           <div className="cart-summary">
             <h3>Total: ₹{totalPrice}</h3>
+            <p>Discount: ₹{discount}</p>
+            <h2>Payable: ₹{finalPrice}</h2>
 
             <button
               className="checkout-btn"
@@ -167,5 +233,4 @@ function Cart() {
     </section>
   );
 }
-
 export default Cart;

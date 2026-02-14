@@ -1,6 +1,7 @@
 import Hero from "./Hero";
 import Categories from "./Categories";
 import Products from "./Products";
+import Reviews  from "./pages/Reviews";
 import { PRODUCTS } from "./Data";
 
 function Home() {
@@ -16,6 +17,7 @@ function Home() {
       <Hero />
       <Categories />
       <Products products={allProducts} />
+      <Reviews />
     </>
   );
 }

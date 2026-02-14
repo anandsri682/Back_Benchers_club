@@ -54,6 +54,20 @@
   justify-content: center;
   animation: slideRight 1s ease forwards;
 }
+.rotate-img {
+  width: 100%;
+  animation: spin 30s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 
 .hero-image img {
   max-width: 350px;

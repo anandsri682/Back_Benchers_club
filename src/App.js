@@ -8,7 +8,7 @@ import AccountDashboard from "./accounts/AccountDashboard";
 import Home from "./Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
-import Reviews from "./pages/Reviews";
+// import Reviews from "./pages/Reviews";
 // import AdminDashboard from './AdminDashboard';
 import CategoriesPage from "./CategoriesPage";
 import CategoryPage from "./CategoryPage";
@@ -52,7 +52,7 @@ function App() {
             <Route path="/admin/manage-products" element={<ManageProducts />} />
             <Route path="/admin/add-product" element={<AddProduct />} />
             {/* <Route path="/admin/update-product/:id" element={<UpdateProduct />} /> */}
-            <Route path="/admin/update-product/:productId" element={<EditProduct />} />
+            <Route path="/admin/update/product/:productId" element={<EditProduct />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
 
@@ -62,7 +62,7 @@ function App() {
           <BottomNav />
         </main>
 
-        <Reviews />
+        {/* <Reviews /> */}
         <Footer />
       </div>
     </AuthProvider>
